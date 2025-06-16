@@ -68,31 +68,63 @@
         button:hover {
             background-color: #0056b3;
         }
+
+        .form-group {
+            margin-bottom: 5px;
+        }
+
+        .display-flex{
+            display: flex;
+        }
     </style>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 
 <body>
     <h1 class="header">檔案上傳練習</h1>
     <!----建立你的表單及設定編碼----->
+    <button style="display: block; margin:15px auto;" id="More">再加一筆</button>
     <form action="uploaded_files.php" method="post" enctype="multipart/form-data">
-        <label for="name">選擇檔案上傳：</label>
-        <input type="file" name="name" id="name" required>
-        <select name="type" id="type">
-            <option value="image">影像</option>
-            <option value="document">文件</option>
-            <option value="video">影片</option>
-            <option value="music">音訊</option>
-        </select>
-        <br>
-        <textarea name="description" id="description"></textarea>
-        <br>
+        <div id="uploads">
+            <div class="from-group">
+                <label for="name">選擇檔案上傳：</label>
+                <input type="file" name="name[]" id="name" required>
+
+                <select name="type[]" id="type">
+                    <option value="image">影像</option>
+                    <option value="document">文件</option>
+                    <option value="video">影片</option>
+                    <option value="music">音訊</option>
+                </select>
+
+                <textarea name="description[]" id="description"></textarea>
+            </div>
+        </div>
+
         <button type="submit">上傳檔案</button>
     </form>
 
-
-
-
     <!----建立一個連結來查看上傳後的圖檔---->
+    <script>
+        $("#More").on("click", function() {
+            let formGroup =
+                `<label for="name">選擇檔案上傳：</label>
+                <input type="file" name="name[]" id="name" required>
+
+                <select name="type[]" id="type">
+                    <option value="image">影像</option>
+                    <option value="document">文件</option>
+                    <option value="video">影片</option>
+                    <option value="music">音訊</option>
+                </select>
+
+                <textarea name="description[]" id="description"></textarea>
+                </div>`
+            $("#uploads").append(formGroup);
+            $(".form-group").removeClass("despaly-flex");
+            $(".form-group").addClass("despaly-flex");
+        })
+    </script>
 
 
 </body>
