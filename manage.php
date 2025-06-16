@@ -9,6 +9,7 @@
 
 
 ?>
+<?php include_once "db.php"; ?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -89,6 +90,7 @@
             font-size: 2em;
             letter-spacing: 2px;
         }
+
         .add-file {
             display: block;
             width: 150px;
@@ -108,17 +110,83 @@
 <body>
     <h1 class="header">檔案管理練習</h1>
     <!----建立上傳檔案表單及相關的檔案資訊存入資料表機制----->
-    <a class='add-file' href="upload.php">新增檔案</a>    
+    <a class='add-file' href="upload.php">新增檔案</a>
     <?php
-    $dns = "mysql:host=localhost;dbname=files;charset=utf8";
-    $pdo = new PDO($dns, 'root', '');
-    $rows = $pdo->query("select * from uploads")->fetchAll(PDO::FETCH_ASSOC);
-    
+    $rows = all("uploads");
+
     if (isset($_GET['msg'])) {
-        echo "<h2>" . $_GET['msg'] . "</h2>";
+        echo "<h2 style='color:pink;text-align:center'>" . $_GET['msg'] . "</h2>";
     }
 
     ?>
+    <style>
+        .pages {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin: 30px auto 20px auto;
+            gap: 8px;
+        }
+
+        .pages a {
+            display: inline-block;
+            padding: 7px 16px;
+            margin: 0 2px;
+            background: #f5f6fa;
+            color: #3498db;
+            border-radius: 5px;
+            text-decoration: none;
+            font-size: 16px;
+            border: 1px solid #dbeafe;
+            transition: background 0.2s, color 0.2s, border 0.2s;
+        }
+
+        .pages a:hover,
+        .pages a.active {
+            background: #3498db;
+            color: #fff;
+            border: 1px solid #3498db;
+        }
+    </style>
+
+    <?php
+    $total_rows = $pdo->query("select count(*) from uploads")->fetchColumn();
+    $div = 5; //每頁顯示的資料筆數
+    $pages = ceil($total_rows / $div); //總頁數
+    $now = $_GET['p'] ?? 1; //目前頁數
+    $start = ($now - 1) * $div; //起始位置
+
+    $rows = all("uploads", " limit $start,$div");
+    ?>
+
+    <div class="pages">
+        <a href="?p=1">第一頁</a>
+        <div>
+        <?php
+        if($now-1>0){
+            echo "<a href='?p=".($now-1)."'> < </a>";
+        }else{
+            echo "<a href='#'> < </a>";
+        }
+
+        for($i=1;$i<=$pages;$i++){
+            echo "<a href='?p=$i'>$i</a>";
+        }
+
+        if($now+1<=$pages){
+            echo "<a href='?p=".($now+1)."'> > </a>";
+        }else{
+            echo "<a href='#'> > </a>";
+        }
+        ?>
+        </div>
+        <a href="?p=<?=$pages?>">最後頁</a>
+    </div>
+
+
+
+
+    <div class=""></div>
 
     <!-- table.table>(tr>th*5)+(tr>td*5) -->
     <table class="table">
@@ -158,7 +226,6 @@
                     ?>
                 </td>
 
-
                 <td><?= $row['name']; ?></td>
                 <td><?= $row['type']; ?></td>
                 <td>
@@ -168,7 +235,29 @@
             </tr>
         <?php endforeach; ?>
     </table>
+    <div class="pages">
+        <a href="?p=1">第一頁</a>
+        <div>
+        <?php
+        if($now-1>0){
+            echo "<a href='?p=".($now-1)."'> < </a>";
+        }else{
+            echo "<a href='#'> < </a>";
+        }
 
+        for($i=1;$i<=$pages;$i++){
+            echo "<a href='?p=$i'>$i</a>";
+        }
+
+        if($now+1<=$pages){
+            echo "<a href='?p=".($now+1)."'> > </a>";
+        }else{
+            echo "<a href='#'> > </a>";
+        }
+        ?>
+        </div>
+        <a href="?p=<?=$pages?>">最後頁</a>
+    </div>
 
     <!----透過資料表來顯示檔案的資訊，並可對檔案執行更新或刪除的工作----->
     <script>
