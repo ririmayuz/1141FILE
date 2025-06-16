@@ -90,18 +90,21 @@
             letter-spacing: 2px;
         }
     </style>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 
 <body>
     <h1 class="header">檔案管理練習</h1>
     <!----建立上傳檔案表單及相關的檔案資訊存入資料表機制----->
+
     <?php
-    if (isset($_GET['msg'])) {
-        echo "<h2>" . $_GET['msg'] . "</h2>";
-    }
     $dns = "mysql:host=localhost;dbname=files;charset=utf8";
     $pdo = new PDO($dns, 'root', '');
     $rows = $pdo->query("select * from uploads")->fetchAll(PDO::FETCH_ASSOC);
+    
+    if (isset($_GET['msg'])) {
+        echo "<h2>" . $_GET['msg'] . "</h2>";
+    }
 
     ?>
 
@@ -147,8 +150,8 @@
                 <td><?= $row['name']; ?></td>
                 <td><?= $row['type']; ?></td>
                 <td>
-                    <button onclick="location.href='edit_upload.php?id=<?=$row['id'];?>'">編輯</button>
-                    <button onclick="location.href='del_upload.php?id=<?=$row['id'];?>'">刪除</button>
+                    <button onclick="location.href='edit_upload.php?id=<?= $row['id']; ?>'">編輯</button>
+                    <button class="del" data-id="<?= $row['id']; ?>">刪除</button>
                 </td>
             </tr>
         <?php endforeach; ?>
@@ -156,7 +159,13 @@
 
 
     <!----透過資料表來顯示檔案的資訊，並可對檔案執行更新或刪除的工作----->
-
+    <script>
+        $(".del").on("click", function() {
+            if (confirm("確定要刪除這個檔案嗎？")) {
+                location.href = "del_upload.php?id=" + $(this).data("id");
+            }
+        })
+    </script>
 
 
 
