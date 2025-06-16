@@ -20,6 +20,6 @@ foreach($_FILES['name']['tmp_name'] as $key=> $tmp_name){
 
 // $pdo->exec($sql);
 // header("location: ./upload.php?mes=檔案上傳成功，檔名為:".$name);
-header("location:manage.php?msg=檔案上傳成功");
+header("location:manage.php?msg=檔案上傳成功.");
 ?>
 
