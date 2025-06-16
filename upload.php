@@ -1,4 +1,5 @@
 <?php
+
 /**
  * 1.建立表單
  * 2.建立處理檔案程式
@@ -9,36 +10,91 @@
 ?>
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>檔案上傳</title>
     <link rel="stylesheet" href="style.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f2f5;
+            color: #333;
+            margin: 0;
+            padding: 20px;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 20px;
+            color: #4a4a4a;
+        }
+
+        form {
+            max-width: 600px;
+            margin: auto;
+            background: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        label {
+            display: block;
+            margin-bottom: 10px;
+        }
+
+        input[type="file"],
+        select,
+        textarea {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border-radius: 4px;
+            border: 1px solid #ccc;
+        }
+
+        button {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+    </style>
 </head>
+
 <body>
- <h1 class="header">檔案上傳練習</h1>
- <!----建立你的表單及設定編碼----->
-<form action="uploaded_files.php" method="post" enctype="multipart/form-data">
-    <label for="name">選擇檔案上傳：</label>
-    <input type="file" name="name" id="name" required>
-    <select name="type" id="type">
-        <option value="image">影像</option>
-        <option value="document">文件</option>
-        <option value="video">影片</option>
-        <option value="music">音訊</option>
-    </select>
-    <br>
-    <textarea name="description" id="description"></textarea>
-    <br>
-    <button type="submit">上傳檔案</button>
-</form>
+    <h1 class="header">檔案上傳練習</h1>
+    <!----建立你的表單及設定編碼----->
+    <form action="uploaded_files.php" method="post" enctype="multipart/form-data">
+        <label for="name">選擇檔案上傳：</label>
+        <input type="file" name="name" id="name" required>
+        <select name="type" id="type">
+            <option value="image">影像</option>
+            <option value="document">文件</option>
+            <option value="video">影片</option>
+            <option value="music">音訊</option>
+        </select>
+        <br>
+        <textarea name="description" id="description"></textarea>
+        <br>
+        <button type="submit">上傳檔案</button>
+    </form>
 
 
 
 
-<!----建立一個連結來查看上傳後的圖檔---->  
+    <!----建立一個連結來查看上傳後的圖檔---->
 
 
 </body>
+
 </html>

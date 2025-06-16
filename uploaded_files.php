@@ -18,6 +18,7 @@ $pdo=new PDO($dsn,'root','');
 $sql="insert into uploads(`name`,`type`,`description`) values ('$name','$type','$description')";
 
 $pdo->exec($sql);
-header("location: ./upload.php?mes=檔案上傳成功，檔名為:".$name);
+// header("location: ./upload.php?mes=檔案上傳成功，檔名為:".$name);
+header("location:manage.php?msg=檔案上傳成功，檔名為：".$name);
 ?>
 

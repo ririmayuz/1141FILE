@@ -89,6 +89,18 @@
             font-size: 2em;
             letter-spacing: 2px;
         }
+        .add-file {
+            display: block;
+            width: 150px;
+            text-align: center;
+            margin: 20px auto;
+            padding: 10px 20px;
+            background: #3498db;
+            color: #fff;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: background 0.2s, color 0.2s;
+        }
     </style>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
@@ -96,7 +108,7 @@
 <body>
     <h1 class="header">檔案管理練習</h1>
     <!----建立上傳檔案表單及相關的檔案資訊存入資料表機制----->
-
+    <a class='add-file' href="upload.php">新增檔案</a>    
     <?php
     $dns = "mysql:host=localhost;dbname=files;charset=utf8";
     $pdo = new PDO($dns, 'root', '');
